@@ -1,0 +1,189 @@
+<head>
+<style>
+.container{
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark{
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after{
+  display: block;
+}
+
+.container .checkmark:after{
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.form-row{
+  display: block;
+}
+
+.form-row .top-row {
+  display: inline-block;
+}
+
+#back_button {
+  float: left;
+}
+
+#next_button {
+  float: right;
+}
+
+#nominee_name {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left_col{
+  float: left;
+}
+
+.right_col{
+  float: right;
+}
+
+.wrapper{
+  display: block;
+  position: right;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="form-row">
+    <div class="top_row">
+      <div id="back_button"><div type="button">Back</div></div>
+      <div id="nominee_name"></div>
+      <div id="next_button"><div type="button">Next</div></div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="top_row">
+      <div class="left_col">
+        <label class="container">One</label>
+      </div>
+      <div class="right_col">
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="top_row">
+      <div class="left_col">
+        <label class="container">Two</label>
+      </div>
+      <div class="right_col">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="top_row">
+      <div class="left_col">
+        <label class="container">Three</label>
+      </div>
+      <div class="right_col">
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="top_row">
+      <div class="left_col">
+        <label class="container">Q Four</label>
+      </div>
+      <div class="right_col">
+        <label> 1
+          <input type="checkbox" name="q4ans">
+          <span class="checkmark"></span>
+        </label>
+        <label> 2
+          <input type="checkbox" name="q4ans">
+          <span class="checkmark"></span>
+        </label>
+        <label> 3
+          <input type="checkbox" name="q4ans">
+          <span class="checkmark"></span>
+        </label>
+        <label> 4
+          <input type="checkbox" name="q4ans">
+          <span class="checkmark"></span>
+        </label>
+        <label> 5
+          <input type="checkbox" name="q4ans">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+var nom_names = [{'name':'Person A'}, 
+                 {'name':'Person B'},
+                 {'name':'Person C'},
+                 {'name':'Person D'}];
+
+function setNomName(nom_num){
+  var name = nom_names[nom_num].name;
+
+  document.getElementById('nominee_name').innerHTML = name;
+};
+
+
+
+
+setNomName(2);
+</script>

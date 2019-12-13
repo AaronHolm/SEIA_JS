@@ -1,0 +1,203 @@
+<head>
+<style>
+form {
+  display: grid;
+  padding: 1em;
+  background: #f9f9f9;
+  border: 1px solid #c1c1c1;
+  margin: 2rem auto 0 auto;
+  max-width: 600px;
+  padding: 1em;
+}
+form input {
+  background: #fff;
+  border: 1px solid #9c9c9c;
+}
+form button {
+  background: lightgrey;
+  padding: 0.7em;
+  width: 100%;
+  border: 0;
+}
+form button:hover {
+  background: gold;
+}
+
+label {
+  padding: 0.5em 0.5em 0.5em 0;
+}
+
+input {
+  padding: 0.7em;
+  margin-bottom: 0.5rem;
+}
+input:focus {
+  outline: 3px solid gold;
+}
+
+@media (min-width: 400px) {
+  form {
+    grid-template-columns: 200px 1fr;
+    grid-gap: 16px;
+  }
+
+  .back_button {
+    grid-column: 1;
+  }
+  
+  .next_button {
+    grid-column: 3;
+  }
+
+  label {
+    text-align: right;
+    grid-column: 1 / 2;
+  }
+
+  input,
+  button {
+    grid-column: 2 / 3;
+  }
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.round {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+
+<form class="form1" action="">
+  <div class="back_button" type="button">
+    <a href="#" id="back_button" onclick="setNomName('back');" class="previous round">&#8249;</a>
+  </div>
+  <div class="next_button" type="button">
+    <a href="#" id="next_button" onclick="setNomName('next');" class="next round">&#8250;</a> 
+  </div>
+
+  <label for="nom_name" class="nom_name">Nominee</label>
+  <input id="nom_name" type="text" disabled>
+
+  <label for="voter_name" class="voter_name">Voter</label>
+  <input id="voter_name" type="text">
+
+  <label for="Q1" class="first-name">Q1</label>
+  <input id="Q1" type="text">
+
+  <label for="Q2" class="last-name">Q2</label>
+  <input id="Q2" type="text">
+
+  <label for="Q3">Q3</label>
+  <input id="Q3" type="text">
+
+  <label for="Q4">Q4</label>
+  <input id="Q4" type="text">
+
+  <label for="Q5">Q5</label>
+  <input id="Q5" type="text">
+
+  <button>Submit</button>
+</form>
+</body>
+<script>
+
+var nom_names = [
+    {'name': 'Person A'},
+    {'name': 'Person B'},
+    {'name': 'Person C'},
+    {'name': 'Person D'},
+    {'name': 'Person E'}];
+
+var nom_num = 0;
+
+function setNomName(direction){
+  if(direction == 'back'){
+    if(nom_num > 0){
+      nom_num = nom_num - 1;
+    }
+    else{
+      nom_num = 0;
+    }
+  }
+
+  if(direction == 'next'){
+    var count = Object.keys(nom_names).length;
+    if(nom_num < count){
+      nom_num = nom_num + 1;
+    }
+  }
+
+  var name = nom_names[nom_num].name;
+  document.getElementById('nom_name').innerHTML = name;
+  document.getElementById('nom_name').value = name;
+}
+
+function getUserName():
+  var username = \Drupal::getCurrentUser();
+  document.getElementById('voter_name').innerHTML = username;
+  document.getElementById('voter_name').value = name;
+}
+
+function submit_form(){
+  res = send_to_google();
+  if(res == 'OK'){
+    clear_form_on_submit();
+  } else {
+    alert('There was an error submitting your data. Please try again.');
+  }
+}
+
+function send_to_google(){
+  var nom_name = document.getElementById('nom_name');
+  var voter_name = document.getElementById('voter_name');
+  var q1 = document.getElementById('Q1');
+  var q2 = document.getElementById('Q2');
+  var q3 = document.getElementById('Q3');
+  var q4 = document.getElementById('Q4');
+  var q5 = document.getElementById('Q5');
+  
+  data = [nom_name, voter_name, q1, q2, q3, q4, q5];
+  res = POST(data);
+  return res;
+}
+
+function clear_form_on_submit(){
+  document.getElementById('Q1').innerHTML = '';
+  document.getElementById('Q1').value = '';
+  document.getElementById('Q2').innerHTML = '';
+  document.getElementById('Q2').value = '';
+  document.getElementById('Q3').innerHTML = '';
+  document.getElementById('Q3').value = '';
+  document.getElementById('Q4').innerHTML = '';
+  document.getElementById('Q4').value = '';
+  document.getElementById('Q5').innerHTML = '';
+  document.getElementById('Q5').value = '';
+  setNomName('next');
+  return; 
+}
+
+
+setNomName('back');
+
+</script>
